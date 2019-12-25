@@ -1,0 +1,289 @@
+<html>
+<head>
+<!-- AUTHORS: JOHN SEALS AND LACEY SIKES -->
+<script src="../math/vector3.js"></script>
+<script src="../math/matrix3.js"></script>
+<script src="test.js"></script>
+<script>
+
+var reporter = new TestReporter();
+
+//-----------------------------------------------------------------------------
+function testMatrix3() {
+    testDefaultValues();
+    testSet();
+    testClone();
+    testCopy();
+    testGetElement();
+    testSetIdentity();
+    testMultiplyScalar();
+    testMultiplyRightSide();
+    testDeterminant();
+    testTranspose();
+    testInverse();
+
+    reporter.reportFinalResults();
+}
+
+//-----------------------------------------------------------------------------
+function testDefaultValues() {
+    reporter.reportTestStart("default values");
+
+    // manually creating identity for comparison
+    var identity = new Matrix3();
+    for (var i = 0; i < 9; ++i) {
+        identity.elements[i] = (i % 3 == Math.floor(i / 3)) ? 1 : 0;
+    }
+
+    var m1 = new Matrix3();
+
+    try {
+        assert(matrix3Equal(m1, identity), "default values");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testSet() {
+    reporter.reportTestStart("set");
+
+    var m1 = new Matrix3();
+    for (var i = 0; i < 9; ++i) {
+        m1.elements[i] = i * 3;
+    }
+
+    var m2 = new Matrix3().set(
+        0, 3, 6,
+        9, 12, 15,
+        18, 21, 24
+    );
+
+    try {
+        assert(matrix3Equal(m1, m2), "matrix set");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testClone() {
+    reporter.reportTestStart("clone");
+
+    var m1 = new Matrix3().set(
+        2, 4, 6,
+        8, 10, 12,
+        14, 16, 18
+    );
+
+    try {
+        assert(m1.elements[2] == 6, "test depends on 'set' to work");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    var m2 = m1.clone();
+    try {
+        assert(m1 != m2, "clone should return a new instance");
+        assert(matrix3Equal(m1, m2), "clone values should match the original");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testCopy() {
+    reporter.reportTestStart("copy");
+
+    var m1 = new Matrix3().set(
+        9, 8, 7,
+        6, 5, 4,
+        3, 2, 1
+    );
+
+    try {
+        assert(m1.elements[2] == 7, "test depends on 'set' working");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    var m2 = new Matrix3().copy(m1);
+
+    try {
+        assert(m1 != m2, "copy should only copy values");
+        assert(matrix3Equal(m1, m2), "values should be equal in a matrix copy");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testGetElement() {
+    reporter.reportTestStart("get element");
+
+    var m1 = new Matrix3();
+    for (var i = 0; i < m1.elements.length; ++i) {
+        m1.elements[i] = i;
+    }
+
+    try {
+        for (var i = 0; i < 9; ++i) {
+            var row = Math.floor(i / 3);
+            var col = i % 3;
+            var message = "getElement(" + row + ", " + col + ") should be " + i;
+            assert(floatEqual(m1.getElement(row, col), i), message);
+        }
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testSetIdentity() {
+    reporter.reportTestStart("set identity");
+
+    var identity = new Matrix3();
+    for (var i = 0; i < 9; ++i) {
+        identity.elements[i] = (i % 3 == Math.floor(i / 3)) ? 1 : 0;
+    }
+
+    var m1 = new Matrix3().set(0, 1, 2, 3, 4, 5, 6, 7, 8);
+    m1.setIdentity();
+
+    try {
+        assert(matrix3Equal(m1, identity), "matrix should be identity");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testMultiplyScalar() {
+    reporter.reportTestStart("multiply scalar");
+
+    var m1 = new Matrix3().set(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    m1.multiplyScalar(2);
+
+    try {
+        for (var i = 0; i < 9; ++i) {
+            assert(floatEqual(m1.elements[i], (i + 1) * 2), "scalar-matrix multiplication");
+        }
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testMultiplyRightSide() {
+    reporter.reportTestStart("multiply right side");
+
+    var matRight = new Matrix3().set(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var m1 = new Matrix3().set(2, 4, 6, 8, 9, 7, 5, 3, 1);
+    var expectedResult = new Matrix3().set(60, 72, 84, 93, 117, 141, 24, 33, 42);
+
+    try {
+        assert(m1.elements[2] == 6, "test depends on 'set' working");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    try {
+        m1.multiplyRightSide(matRight);
+        assert(matrix3Equal(m1, expectedResult), "matrix multiply from right side");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testDeterminant() {
+    reporter.reportTestStart("determinant");
+
+    var m1 = new Matrix3().set(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    var det = m1.determinant();
+
+    try {
+        assert(floatEqual(det, 0), "determinant of linearly dependent basis vectors should be 0");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testTranspose() {
+    reporter.reportTestStart("transpose");
+
+    var m1 = new Matrix3().set(
+        10, 20, 30,
+        40, 50, 60,
+        70, 80, 90
+    );
+    var m2 = m1.clone();
+    m1.transpose();
+
+    try {
+        for (var i = 0; i < 9; ++i) {
+            var row = Math.floor(i / 3);
+            var col = i % 3;
+            assert(floatEqual(m1.getElement(row, col), m2.getElement(col, row)), "tranpose should reflect around the diagonal");
+        }
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testInverse() {
+    reporter.reportTestStart("inverse");
+
+    var m1 = new Matrix3().set(
+        1, 1, -1,
+        1, 1, 1,
+        1, -1, 1
+    );
+
+    try {
+        assert(m1.elements[2] == -1, "test depends on 'set' working");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    m1.inverse();
+
+    var expectedInverse = new Matrix3().set(
+        0.5, 0.0, 0.5,
+        0.0, 0.5, -0.5,
+        -0.5, 0.5, 0.0
+    );
+
+    try {
+        assert(matrix3Equal(m1, expectedInverse), "inverse should match the 'expected' values");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+</script>
+
+</head>
+
+<body onload="testMatrix3()">
+    <img id="endImg">
+</body>
+
+</html>
