@@ -14,7 +14,7 @@
                 color: #ffffff;
             }*/
         
-            #labs, #homework, #finalproject {
+            #labs, #finalproject {
                 text-align: center;
                 /*float: none;
                 padding-left: 350px;*/
@@ -35,25 +35,10 @@
     
         <div id="content">
             <div id="labs">
-                <h2>Lab Assignments</h2>
+                <h2>Modules</h2>
                 <a href="Labs/Lab1/index.html">Lab 1 </a><br>
-                <a href="Labs/Lab2/777/index.php"> Lab 2</a><br>
-                <a href="Labs/Lab3/index.php">Lab 3</a><br>
-                <a href="Labs/Lab4/scart/index.php">Lab 4</a><br>
-                <a href="Labs/Lab5/index.php">Lab 5</a><br>
-                <a href="Labs/Lab6/login.php">Lab 6</a><br>
-                <a href="Labs/Lab7/hangman/index.html">Lab 7</a><br>
-                <a href="Labs/Lab8/pets/index.php">Lab 8 - Pet Shelter</a><br>
                 <a href="Labs/Lab8/csumb_quiz/index.php">Lab 8 - CSUMB Quiz</a><br>
                 
-            </div>
-        
-            <div id="homework">
-                <h2>Homework Assignments</h2>
-                <a href="HW/HW1/index.html">Homework 1</a><br>
-                <a href="HW/HW2/index.php">Homework 2</a><br>
-                <a href="HW/HW3/index.php">Homework 3</a><br>
-                <a href="HW/HW4/platform.html">Homework 4</a><br>
             </div>
             
             <div id="finalproject">
