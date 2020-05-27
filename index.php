@@ -36,7 +36,7 @@
         <div id="content">
             <div id="modules">
                 <h2>Modules</h2>
-                <a href="module 1">Module 1</a><br>
+                <a href="module 1/vector3Test/test-vector3.html">Module 1: Vector Testing</a><br>
                 <a href="Labs/Lab8/csumb_quiz/index.php">Lab 8 - CSUMB Quiz</a><br>
                 
             </div>
