@@ -37,7 +37,8 @@
             <div id="modules">
                 <h2>Modules</h2>
                 <a href="module 1/vector3Test/test-vector3.html">Module 1: Vector Testing</a><br>
-                <a href="Labs/Lab8/csumb_quiz/index.php">Lab 8 - CSUMB Quiz</a><br>
+                <a href="module 1/sphereTest/test-plane.html">Module 1: Plane Testing</a><br>
+                <a href="module 1/sphereTest/test-sphere.html">Module 1: Sphere Testing</a><br>
                 
             </div>
             
