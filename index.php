@@ -40,10 +40,13 @@
                 <a href="module 1/sphereTest/test-plane.html">Module 1: Plane Testing</a><br>
                 <a href="module 1/sphereTest/test-sphere.html">Module 1: Sphere Testing</a><br>
                 <br>
-                <a href="module 2/Raytracer/raytracer.html">Module 2: Raytracer Testing</a><br>
+                <a href="module 2/Raytracer/raytracer.html">Module 2: Raytracer Demonstration</a><br>
                 <br>
                 <a href="module 3/test/test-matrix4.html">Module 3: Matrix3 Testing</a><br>
                 <a href="module 3/test/test-matrix4.html">Module 3: Matrix4 Testing</a><br>
+                <br>
+                <a href="module 4/module 4 - Intro-to-WebGL/Intro-to-WebGL.html">Module 3: Matrix4 Testing</a><br>
+                
                 
             </div>
             
