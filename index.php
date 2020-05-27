@@ -36,7 +36,7 @@
         <div id="content">
             <div id="modules">
                 <h2>Modules</h2>
-                <a href="Module 1/index.js">Module 1</a><br>
+                <a href="Module 1">Module 1</a><br>
                 <a href="Labs/Lab8/csumb_quiz/index.php">Lab 8 - CSUMB Quiz</a><br>
                 
             </div>
