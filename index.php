@@ -45,9 +45,11 @@
                 <a href="module 3/test/test-matrix4.html">Module 3: Matrix3 Testing</a><br>
                 <a href="module 3/test/test-matrix4.html">Module 3: Matrix4 Testing</a><br>
                 <br>
-                <a href="module 4 - Intro-to-WebGL/Intro-to-WebGL.html">Module 4: WebGL Demonstration</a><br>
+                <a href="module 4 - Intro-to-WebGL/Intro-to-WebGL.html">Module 4: WebGL Demonstration - Hello, Triangle!</a><br>
                 <br>
-                <a href="module 5/index.html">Module 5: Texturing Demonstration</a><br>
+                <a href="module 5/index.html">Module 5: Texturing Demonstration - Grab and move platform with gradiants</a><br>
+                <br>
+                <a href="module 6 - Phong/index.html">Module 6: Phong Demonstrations</a><br>
                 <br>
                 
             </div>
