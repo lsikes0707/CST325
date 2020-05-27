@@ -36,23 +36,22 @@
         <div id="content">
             <div id="modules">
                 <h2>Modules</h2>
-                <a href="module 1/vector3Test/test-vector3.html">Module 1: Vector Testing</a><br>
-                <a href="module 1/sphereTest/test-plane.html">Module 1: Plane Testing</a><br>
-                <a href="module 1/sphereTest/test-sphere.html">Module 1: Sphere Testing</a><br>
+                <a href="module 7 - shadow mapping/index.html">Module 7: Shadow Map Demonstration</a><br>
                 <br>
-                <a href="module 2/Raytracer/raytracer.html">Module 2: Raytracer Demonstration</a><br>
+                <a href="module 6 - Phong/index.html">Module 6: Phong Demonstrations</a><br>
+                <br>
+                <a href="module 5/index.html">Module 5: Texturing Demonstration - Grab and move platform with gradiants</a><br>
+                <br>
+                <a href="module 4 - Intro-to-WebGL/Intro-to-WebGL.html">Module 4: WebGL Demonstration - Hello, Triangle!</a><br>
                 <br>
                 <a href="module 3/test/test-matrix4.html">Module 3: Matrix3 Testing</a><br>
                 <a href="module 3/test/test-matrix4.html">Module 3: Matrix4 Testing</a><br>
                 <br>
-                <a href="module 4 - Intro-to-WebGL/Intro-to-WebGL.html">Module 4: WebGL Demonstration - Hello, Triangle!</a><br>
+                <a href="module 2/Raytracer/raytracer.html">Module 2: Raytracer Demonstration</a><br>
                 <br>
-                <a href="module 5/index.html">Module 5: Texturing Demonstration - Grab and move platform with gradiants</a><br>
-                <br>
-                <a href="module 6 - Phong/index.html">Module 6: Phong Demonstrations</a><br>
-                <br>
-                <a href="module 7 - shadow mapping/index.html">Module 7: Shadow Map Demonstration</a><br>
-                
+                <a href="module 1/vector3Test/test-vector3.html">Module 1: Vector Testing</a><br>
+                <a href="module 1/sphereTest/test-plane.html">Module 1: Plane Testing</a><br>
+                <a href="module 1/sphereTest/test-sphere.html">Module 1: Sphere Testing</a><br>
             </div>
 
         </div>
