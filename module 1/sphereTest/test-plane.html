@@ -1,0 +1,120 @@
+<html>
+<head>
+<script src="../math/vector3.js"></script>
+<script src="../math/ray.js"></script>
+<script src="../math/plane.js"></script>
+<script src="test.js"></script>
+<script>
+
+var reporter = new TestReporter();
+
+//-----------------------------------------------------------------------------
+function testPlane() {
+    testInitialization();
+    testDefaultValues();
+    testValidIntersection();
+    testCoplanarCase();
+    testBackfaceCase();
+
+    reporter.reportFinalResults();
+}
+
+//-----------------------------------------------------------------------------
+function testInitialization() {
+    reporter.reportTestStart("initialization");
+
+    try {
+        var p1 = new Plane(new Vector3(1, 2, 3), new Vector3(3, 2, 1));
+        var normalizedNormal = new Vector3(1, 2, 3).normalized();
+        assert(vectorEqual(p1.normal, normalizedNormal), "initialization - normal");
+        assert(vectorEqual(p1.validPoint, 3, 2, 1), "initialization - valid point");
+
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testDefaultValues() {
+    reporter.reportTestStart("default values");
+
+    try {
+        var p2 = new Plane();
+        assert(vectorEqual(p2.normal, 0, 1, 0), "default values - normal");
+        assert(vectorEqual(p2.validPoint, 0, 0, 0), "default values - valid point");
+
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testValidIntersection() {
+    reporter.reportTestStart("valid intersections");
+
+    try {
+        // typical valid intersection (hitting the front face)
+        var p3 = new Plane(new Vector3(0, 0, -1), new Vector3(0, 0, 2));
+        var r1 = new Ray(new Vector3(0, 0, -10), new Vector3(0, 0, 1));
+        var castResult = p3.raycast(r1);
+        assert(castResult.hit == true, "typical valid intersection success");
+        assert(vectorEqual(castResult.point, 0, 0, 2), "typical valid intersection point");
+        assert(vectorEqual(castResult.normal, 0, 0, -1), "typical valid intersection normal");
+        assert(floatEqual(castResult.distance, 12), "typical valid intersection distance");
+
+        var p4 = new Plane(new Vector3(1, 1, -1), new Vector3(-1, -1, 10));
+        var r2 = new Ray(new Vector3(0, 0, -10), new Vector3(0, 0, 1));
+        var castResult = p4.raycast(r2);
+        assert(castResult.hit == true, "typical valid intersection success 2");
+        assert(vectorEqual(castResult.point, 0, 0, 12, "typical valid intersection point 2"));
+        assert(vectorEqual(castResult.normal, 0.5773502691896258, 0.5773502691896258, -0.5773502691896258 ), "typical valid intersection normal 1");
+        assert(floatEqual(castResult.distance, 22, "typical valid intersection distance 2"));
+
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testCoplanarCase() {
+    reporter.reportTestStart("coplanar case");
+
+    try {
+        // unlikely case: no intersection (coplanar)
+        var p5 = new Plane(new Vector3(0, 0, 1), new Vector3(0, 0, 1));
+        var r3 = new Ray(new Vector3(1, 1, 1), new Vector3(1, 0, 0));
+        castResult = p5.raycast(r3);
+        assert(castResult.hit == false, "fail case - coplanar");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testBackfaceCase() {
+    reporter.reportTestStart("back face case");
+
+    try {
+        // typical invalid intersection (hitting back face)
+        var p6 = new Plane(new Vector3(0, 0, 1), new Vector3(0, 0, 1));
+        var r4 = new Ray(new Vector3(0, 0, -10), new Vector3(0, 0, 1));
+        castResult = p6.raycast(r4);
+        assert(castResult.hit == false, "fail case - back face");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+</script>
+
+</head>
+
+<body onload="testPlane()">
+</body>
+
+</html>

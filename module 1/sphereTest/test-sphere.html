@@ -1,0 +1,184 @@
+<html>
+<head>
+<script src="../math/vector3.js"></script>
+<script src="../math/ray.js"></script>
+<script src="../math/sphere.js"></script>
+<script src="test.js"></script>
+<script>
+
+var reporter = new TestReporter();
+
+//-----------------------------------------------------------------------------
+function testSphere() {
+    testInitialization();
+    testDefaultValues();
+    testValidIntersection();
+    testTangentIntersection();
+    testInvalidIntersection();
+    testNegativeIntersection();
+    testInsideSphere();
+    testNegativeTangent();
+    testNormal();
+
+    reporter.reportFinalResults();
+}
+
+//-----------------------------------------------------------------------------
+function testInitialization() {
+    reporter.reportTestStart("initialization");
+
+    var s1 = new Sphere(new Vector3(1, 2, 3), 10);
+
+    try {
+        assert(sphereEqual(s1, 1, 2, 3, 10), "initialization");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testDefaultValues() {
+    reporter.reportTestStart("default values");
+
+    var s2 = new Sphere();
+
+    try {
+        assert(sphereEqual(s2, 0, 0, 0, 1), "default values");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testValidIntersection() {
+    reporter.reportTestStart("test valid intersection");
+
+    // typical valid intersection (2 points)
+    var r1 = new Ray(new Vector3(0, 0, -10), new Vector3(0, 0, 1));
+    var s3 = new Sphere(new Vector3(), 1);
+    var castResult = s3.raycast(r1);
+
+    try {
+        assert(castResult.hit == true, "typical valid hit");
+        assert(vectorEqual(castResult.point, 0, 0, -1), "typical valid hit point");
+        assert(vectorEqual(castResult.normal, 0, 0, -1), "typical valid hit normal");
+        assert(floatEqual(castResult.distance, 9), "typical valid hit distance");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testTangentIntersection() {
+    reporter.reportTestStart("tangent intersection");
+
+    // unlikely valid intersection (1 point)
+    var s4 = new Sphere(new Vector3(-1, 0, 0), 2);
+    var r2 = new Ray(new Vector3(-3, 0, -10), new Vector3(0, 0, 1));
+    castResult = s4.raycast(r2);
+
+    try {
+        assert(castResult.hit == true, "tangent valid hit");
+        assert(vectorEqual(castResult.point, -3, 0, 0), "tangent valid hit point");
+        assert(vectorEqual(castResult.normal, -1, 0, 0), "tangent valid hit normal");
+        assert(floatEqual(castResult.distance, 10), "tangent valid hit distance");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testInvalidIntersection() {
+    reporter.reportTestStart("invalid intersection");
+
+    // no intersection (0 points)
+    var s4 = new Sphere(new Vector3(-1, 0, 0), 2);
+    var r3 = new Ray(new Vector3(0, 0, -10), new Vector3(-1, 0, 1));
+    castResult = s4.raycast(r3);
+
+    try {
+        assert(castResult.hit == false, "typical invalid");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testNegativeIntersection() {
+    reporter.reportTestStart("negative intersection");
+
+    // typical invalid intersection (2 negative points)
+    var s4 = new Sphere(new Vector3(-1, 0, 0), 2);
+    var r4 = new Ray(new Vector3(-1, 0, 10), new Vector3(0, 0, 1));
+    castResult = s4.raycast(r4);
+
+    try {
+        assert(castResult.hit == false, "invalid 2 negative");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+//-----------------------------------------------------------------------------
+function testInsideSphere() {
+    reporter.reportTestStart("inside sphere");
+
+    // invalid intersection (ray origin is inside sphere)
+    var r5 = new Ray(new Vector3(), new Vector3(0, 0, 1));
+    var s5 = new Sphere();
+    castResult = s5.raycast(r5);
+
+    try {
+        assert(castResult.hit == false, "invalid - inside sphere");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testNegativeTangent() {
+    reporter.reportTestStart("negative tangent");
+
+    // unlikely invalid intersection (1 negative point)
+    var r6 = new Ray(new Vector3(-1, 0, 10), new Vector3(0, 0, 1));
+    var s6 = new Sphere();
+    castResult = s6.raycast(r6);
+
+    try {
+        assert(castResult.hit == false, "invalid 1 negative");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-----------------------------------------------------------------------------
+function testNormal() {
+    reporter.reportTestStart("normal");
+
+    // unlikely invalid intersection (1 negative point)
+    var r6 = new Ray(new Vector3(0, 0, 10), new Vector3(0, 0, -1));
+    var s6 = new Sphere(new Vector3(-1, 0, 0), 1);
+    castResult = s6.raycast(r6);
+
+    try {
+        assert(vectorEqual(castResult.normal, 1, 0, 0, "invalid normal"));
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+</script>
+
+</head>
+
+<body onload="testSphere()">
+</body>
+
+</html>
