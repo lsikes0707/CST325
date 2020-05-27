@@ -39,6 +39,8 @@
                 <a href="module 1/vector3Test/test-vector3.html">Module 1: Vector Testing</a><br>
                 <a href="module 1/sphereTest/test-plane.html">Module 1: Plane Testing</a><br>
                 <a href="module 1/sphereTest/test-sphere.html">Module 1: Sphere Testing</a><br>
+                <br><br>
+                <a href="module 2/raytracer new.html">Module 2: Raytracer Testing</a><br>
                 
             </div>
             
