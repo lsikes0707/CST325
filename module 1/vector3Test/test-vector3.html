@@ -1,0 +1,262 @@
+<html>
+<head>
+<script src="../math/vector3.js"></script>
+<script src="test.js"></script>
+<script>
+// AUTHORS: LACEY SIKES, JOHN SEALS
+
+var reporter = new TestReporter();
+
+//-----------------------------------------------------------------------------
+function testVector3() {
+    testInitialization();
+    testDefaultValues();
+    testSet();
+    testCopy();
+    testAdd();
+    testSubtract();
+    testNegate();
+    testMultiplyScalar();
+    testLength();
+    testLengthSquared();
+    testNormalized();
+    testNormalize();
+    testDotProduct();
+
+    reporter.reportFinalResults();
+}
+
+//-------------------------------------------------------------------------------
+function testInitialization() {
+    reporter.reportTestStart("initialization");
+
+    var v1 = new Vector3(1, 2, 3);
+
+    try {
+        assert(vectorEqual(v1, 1, 2, 3), "initialization");
+        reporter.reportTestEnd(true);
+    } catch (err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testDefaultValues() {
+    reporter.reportTestStart("default values");
+
+    var v2 = new Vector3();
+
+    try {
+        assert(vectorEqual(v2, 0, 0, 0), "default values");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testSet() {
+    reporter.reportTestStart("set");
+
+    var v3 = new Vector3().set(1, 2, 3);
+
+    try {
+        assert(vectorEqual(v3, 1, 2, 3), "set");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testCopy() {
+    reporter.reportTestStart("copy");
+
+    var v4 = new Vector3();
+    var v5 = new Vector3(3, 2, 1);
+    self = v4.copy(v5);
+
+    try {
+        assert(vectorEqual(v4, 3, 2, 1), "copy");
+        assert(v4 == self, "copy (return value)");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testAdd() {
+    reporter.reportTestStart("add");
+
+    var v6 = new Vector3(1, 1, 1);
+    var v7 = new Vector3(3, 2, 1);
+    self = v6.add(v7);
+
+    try {
+        assert(vectorEqual(v6, 4, 3, 2), "add");
+        assert(vectorEqual(v7, 3, 2, 1), "add");
+        assert(v6 == self, "add (return value)");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testSubtract() {
+    reporter.reportTestStart("subtract");
+
+    var v8 = new Vector3(1, 1, 1);
+    var v9 = new Vector3(3, 2, 1);
+    self = v8.subtract(v9);
+
+    try {
+        assert(vectorEqual(v8, -2, -1, 0), "subtract");
+        assert(vectorEqual(v9, 3, 2, 1), "subtract");
+        assert(self == v8, "subtract (return value)");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testNegate() {
+    reporter.reportTestStart("negate");
+
+    var v10 = new Vector3(2, 4, 6).negate();
+
+    try {
+        assert(vectorEqual(v10, -2, -4, -6), "negate");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testMultiplyScalar() {
+    reporter.reportTestStart("multiplyScalar");
+
+    var v11 = new Vector3(2, 4, 6).multiplyScalar(2);
+
+    try {
+        assert(vectorEqual(v11, 4, 8, 12), "multiplyScalar");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testLength() {
+    reporter.reportTestStart("length");
+
+    var length = new Vector3(3, 0, 4).length();
+
+    try {
+        assert(floatEqual(length, 5), "length");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    length = new Vector3(0, 3, 4).length();
+
+    try {
+        assert(floatEqual(length, 5), "length");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testLengthSquared() {
+    reporter.reportTestStart("length squared");
+
+    length = new Vector3(3, 0, 4).lengthSqr();
+
+    try {
+        assert(floatEqual(length, 25), "lengthSqr");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    length = new Vector3(0, 3, 4).lengthSqr();
+    try {
+        assert(floatEqual(length, 25), "lengthSqr");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testNormalized() {
+    reporter.reportTestStart("normalized");
+
+    // Note - try deleting some of the ending digits of these long decimal numbers to
+    // see if they still compare as equal
+
+    var v12 = new Vector3(1.234, 98.76, 425.4);
+    var v13 = v12.normalized();
+
+    try {
+        assert(vectorEqual(v13, 0.002825639739273576, 0.2261427720021543, 0.9740900689521712), "normalized (not normalize)");
+        assert(v12 != v13, "normalized (return value)");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testNormalize() {
+    reporter.reportTestStart("normalize");
+
+    var v14 = new Vector3(1.234, 98.76, 425.4).normalize();
+
+    try {
+        assert(vectorEqual(v14, 0.002825639739273576, 0.2261427720021543, 0.9740900689521712), "normalize (not normalized)");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+
+//-------------------------------------------------------------------------------
+function testDotProduct() {
+    reporter.reportTestStart("dot product");
+
+    var root2Over2 = Math.sqrt(2) / 2; // 0.707 rad or 45 degrees
+    var v15 = new Vector3(root2Over2, root2Over2, 0); // precise enough to pass floatEqual
+    var dot = v15.dot(v15);
+
+    try {
+        assert(floatEqual(dot, 1), "dot");
+    } catch(err) {
+        reporter.reportTestEnd(false);
+        return;
+    }
+
+    var v16 = new Vector3(root2Over2, 0, root2Over2); // precise enough to pass floatEqual
+    dot = v16.dot(v16);
+
+    try {
+        assert(floatEqual(dot, 1), "dot");
+        reporter.reportTestEnd(true);
+    } catch(err) {
+        reporter.reportTestEnd(false);
+    }
+}
+</script>
+
+</head>
+
+<body onload="testVector3()">
+</body>
+
+</html>
