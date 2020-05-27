@@ -36,8 +36,6 @@
         <div id="content">
             <div id="modules">
                 <h2>Modules</h2>
-                <a href="module 7 - shadow mapping/index.html">Module 7: Shadow Map Demonstration</a><br>
-                <br>
                 <a href="module 6 - Phong/index.html">Module 6: Phong Demonstrations</a><br>
                 <br>
                 <a href="module 5/index.html">Module 5: Texturing Demonstration - Grab and move platform with gradiants</a><br>
