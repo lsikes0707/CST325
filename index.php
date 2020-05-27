@@ -6,7 +6,7 @@
                 text-align: center;
             }
             body {
-                background-color: #000000;
+                background-color: #87CEFA;
                 color: /*#f75216*/#f40480;
             }
             
@@ -54,18 +54,13 @@
                 <a href="module 7 - shadow mapping/index.html">Module 7: Shadow Map Demonstration</a><br>
                 
             </div>
-            
-            <div id="finalproject">
-                <h2>Final Project</h2>
-                <a href="Final/index.php">SSL Island Mart</a><br><br><br>
-                <!--<a href="https://ssl336final.herokuapp.com/">SSL Island Mart</a><br><br><br> -->
-            </div>
+
         </div>
         <!-- This is the footer -->
         <!-- The footer goes inside the body but not always -->
         <footer id="footer">
             <hr>
-            Internet Programming. 2018&copy; Lacey <br />
+            Graphics Programming. 2018&copy; Lacey <br />
             <strong>Disclaimer:</strong> The information in this webpage is fictitous. <br />
             It is used for academic purposes only.
             <figure id="csumbLogo">
