@@ -14,7 +14,7 @@
                 color: #ffffff;
             }*/
         
-            #labs, #finalproject {
+            #modules, #finalproject {
                 text-align: center;
                 /*float: none;
                 padding-left: 350px;*/
@@ -30,13 +30,13 @@
 
     <body>
         <header>
-             <h1><strong>Lacey's</strong> CST-336 Home Page</h1>   
+             <h1><strong>Lacey's</strong> JavaScript Dev </h1>   
         </header>
     
         <div id="content">
-            <div id="labs">
+            <div id="modules">
                 <h2>Modules</h2>
-                <a href="Labs/Lab1/index.html">Lab 1 </a><br>
+                <a href="Module 1/index.js">Module 1</a><br>
                 <a href="Labs/Lab8/csumb_quiz/index.php">Lab 8 - CSUMB Quiz</a><br>
                 
             </div>
