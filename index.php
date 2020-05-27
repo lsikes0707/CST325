@@ -7,7 +7,7 @@
             }
             body {
                 background-color: #87CEFA;
-                color: /*#f75216#f40480 */ #FF8C00;
+                color: /*#f75216#f40480  #FF8C00*/ #000000;
             }
             
             /*a {
